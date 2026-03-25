@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: app
+#  config:
+#    import:
+#      - optional aws-parameterstore:/springboot/${spring.profiles.active}/
+#      - optional aws-secretsmanager:/springboot/${spring.profiles.active}/db
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+server:
+  port: 8080
+  address: 0.0.0.0
+
+aws:
+  region: ${AWS_REGION:us-east-2}
+
+app:
+  s3:
+    bucket-name: ${APP_S3_BUCKET_NAME:boot-app-dev-bucket-pradeep}
+    default-prefix: ${APP_S3_DEFAULT_PREFIX:uploads/}
+    kms-key-id: ${APP_S3_KMS_KEY_ID:}
+
+logging:
+  level:
+    io.awspring.cloud: DEBUG
+    software.amazon.awssdk: INFO
